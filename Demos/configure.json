@@ -1,0 +1,83 @@
+{
+    "files": {
+        "Pancake Service Log Files": {
+            "path": "./*PancakeServicePerformance*.log",
+            "pattern": "Server(\\d+)_([a-zA-Z]+)_.*.log",
+            "props": {
+                "1": "hostName",
+                "2": "perfType"
+            }
+        },
+        "Waffle Service Log Files": {
+            "path": "./*WaffleServicePerformance*.log",
+            "pattern": "(\\d+)_([a-zA-Z]+)_.*.log",
+            "props": {
+                "1": "hostName",
+                "2": "perfType"
+            }
+        }
+    },
+    
+    "lines": {
+        "Pancake Log Line": {
+            "pattern": "([0-9-:, ]+) - (.+)\\[.*\\] - ([0-9.]+)",
+            "props": {
+                "1": "timeStamp",
+                "2": "metric",
+                "3": "executionTime",
+                "SomeRandomVal": "Somerandomval"
+            }
+        },
+        "Waffle Log Line": {
+            "pattern": "([0-9-:, ]+) - (.+)\\[.*\\] - ([0-9.]+)",
+            "props": {
+                "1": "timeStamp",
+                "2": "metric",
+                "3": "executionTimeInNanos"
+            }
+        }
+    },
+    
+    "actions": {
+        "Pancake Action": {
+            "file": "Pancake Service Log Files",
+            "line": "Pancake Log Line",
+            "output": {
+                "console": [[
+                    "localhost",
+                    8125,
+                    "$hostName.$perfType.performance",
+                    "$executionTime",
+                    "timer"
+                ],
+                [
+                    "localhost",
+                    8125,
+                    "$perfType.performance",
+                    "$executionTime",
+                    "timer"
+                ]]
+            }
+        },
+        "Waffle Action": {
+            "file": "Waffle Service Log Files",
+            "line": "Waffle Log Line",
+            "output": {
+                "console": [[
+                    "localhost",
+                    8125,
+                    "$hostName.$perfType.$metric.performance",
+                    "#$executionTimeInNanos/100000#",
+                    "timer"
+                ]],
+                "statsd": [[
+                    "localhost",
+                    8125,
+                    "$hostName.$perfType.$metric.performance",
+                    "#$executionTimeInNanos/100000#",
+                    "timer"
+                ]]
+            }
+        } 
+    } 
+}

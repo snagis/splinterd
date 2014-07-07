@@ -1,0 +1,29 @@
+{
+  "name": "splinterd",
+  "keywords": [
+    "watch", 
+    "log", 
+    "logs", 
+    "parse", 
+    "logparser", 
+    "parser"
+  ],
+  "bin": {
+    "splinterd": "./splinter.js"
+  },
+  "engines": {
+    "node": "~0.8 || ~0.10"
+  },
+  "version": "0.0.0",
+  "description": "An uber simple log parser and statsd feeder for node platform",
+  "main": "splinter",
+  "repository": "",
+  "author": "Sreekanth Nagisetty",
+  "dependencies": {
+    "commander": "~2.2.0",
+    "globwatcher": "~1.2.3",
+    "line-chomper": "~0.4.3",
+    "lynx": "~0.1.1",
+    "npmlog" : "~0.1.1"
+  }
+}
